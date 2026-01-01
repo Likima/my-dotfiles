@@ -1,0 +1,198 @@
+/* Rofi Configuration - Tokyo Night Theme */
+
+configuration {
+    modi: "drun,run,window,filebrowser";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    terminal: "kitty";
+    drun-display-format: "{name}";
+    font: "JetBrainsMono Nerd Font 12";
+    display-drun: " Apps";
+    display-run: " Run";
+    display-window: " Windows";
+    display-filebrowser: " Files";
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+    scroll-method: 1;
+}
+
+/* Tokyo Night Color Palette */
+* {
+    bg:           #1a1b26e6;
+    bg-alt:       #24283be6;
+    bg-selected:  #364a82e6;
+    fg:           #c0caf5;
+    fg-alt:       #565f89;
+    border:       #7aa2f7;
+    accent:       #7aa2f7;
+    urgent:       #f7768e;
+    transparent:  transparent;
+    
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+window {
+    width: 600px;
+    height: 450px;
+    border: 2px solid;
+    border-color: @border;
+    border-radius: 12px;
+    background-color: @bg;
+    transparency: "real";
+}
+
+mainbox {
+    background-color: @transparent;
+    children: [inputbar, message, listview];
+    spacing: 10px;
+    padding: 15px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 12px 15px;
+    spacing: 10px;
+    children: [prompt, entry];
+}
+
+prompt {
+    background-color: @transparent;
+    text-color: @accent;
+    font: "JetBrainsMono Nerd Font Bold 12";
+}
+
+entry {
+    background-color: @transparent;
+    text-color: @fg;
+    placeholder: "Search...";
+    placeholder-color: @fg-alt;
+    cursor: text;
+}
+
+message {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+textbox {
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+listview {
+    background-color: @transparent;
+    columns: 1;
+    lines: 8;
+    spacing: 5px;
+    scrollbar: true;
+    fixed-height: true;
+    fixed-columns: true;
+    cycle: true;
+}
+
+scrollbar {
+    width: 4px;
+    handle-width: 4px;
+    handle-color: @accent;
+    background-color: @bg-alt;
+    border-radius: 2px;
+}
+
+element {
+    background-color: @transparent;
+    padding: 10px 15px;
+    border-radius: 8px;
+    spacing: 10px;
+}
+
+element normal.normal {
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+element normal.urgent {
+    background-color: @urgent;
+    text-color: @bg;
+}
+
+element normal.active {
+    background-color: @bg-alt;
+    text-color: @accent;
+}
+
+element selected.normal {
+    background-color: @bg-selected;
+    text-color: @fg;
+    border: 0px 0px 0px 3px;
+    border-color: @accent;
+}
+
+element selected.urgent {
+    background-color: @urgent;
+    text-color: @bg;
+}
+
+element selected.active {
+    background-color: @bg-selected;
+    text-color: @accent;
+}
+
+element alternate.normal {
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+element alternate.urgent {
+    background-color: @urgent;
+    text-color: @bg;
+}
+
+element alternate.active {
+    background-color: @transparent;
+    text-color: @accent;
+}
+
+element-icon {
+    size: 24px;
+    background-color: @transparent;
+    cursor: inherit;
+}
+
+element-text {
+    background-color: @transparent;
+    text-color: inherit;
+    cursor: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+}
+
+error-message {
+    background-color: @bg;
+    border: 2px solid;
+    border-color: @urgent;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+/* Mode switcher (tabs) */
+mode-switcher {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    spacing: 0px;
+}
+
+button {
+    background-color: @transparent;
+    text-color: @fg-alt;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+button selected {
+    background-color: @bg-selected;
+    text-color: @accent;
+}

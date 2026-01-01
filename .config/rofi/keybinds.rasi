@@ -1,0 +1,128 @@
+/* Rofi Keybinds Cheatsheet - Tokyo Night Theme */
+
+configuration {
+    show-icons: false;
+    font: "JetBrainsMono Nerd Font 11";
+    disable-history: true;
+    fixed-num-lines: true;
+}
+
+/* Tokyo Night Color Palette */
+* {
+    bg:           #1a1b26e6;
+    bg-alt:       #24283be6;
+    bg-selected:  #364a82e6;
+    fg:           #c0caf5;
+    fg-alt:       #565f89;
+    border:       #7aa2f7;
+    accent:       #7aa2f7;
+    green:        #9ece6a;
+    yellow:       #e0af68;
+    magenta:      #bb9af7;
+    cyan:         #7dcfff;
+    transparent:  transparent;
+    
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+window {
+    width: 750px;
+    height: 600px;
+    border: 2px solid;
+    border-color: @border;
+    border-radius: 12px;
+    background-color: @bg;
+    transparency: "real";
+}
+
+mainbox {
+    background-color: @transparent;
+    children: [inputbar, message, listview];
+    spacing: 10px;
+    padding: 15px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 12px 15px;
+    spacing: 10px;
+    children: [prompt, entry];
+}
+
+prompt {
+    background-color: @transparent;
+    text-color: @accent;
+    font: "JetBrainsMono Nerd Font Bold 13";
+}
+
+entry {
+    background-color: @transparent;
+    text-color: @fg;
+    placeholder: "Filter keybinds...";
+    placeholder-color: @fg-alt;
+    cursor: text;
+}
+
+message {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+textbox {
+    background-color: @transparent;
+    text-color: @fg-alt;
+    font: "JetBrainsMono Nerd Font 10";
+}
+
+listview {
+    background-color: @transparent;
+    columns: 1;
+    lines: 15;
+    spacing: 3px;
+    scrollbar: true;
+    fixed-height: true;
+    cycle: true;
+}
+
+scrollbar {
+    width: 4px;
+    handle-width: 4px;
+    handle-color: @accent;
+    background-color: @bg-alt;
+    border-radius: 2px;
+}
+
+element {
+    background-color: @transparent;
+    padding: 8px 12px;
+    border-radius: 6px;
+    spacing: 10px;
+}
+
+element normal.normal {
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @bg-selected;
+    text-color: @fg;
+    border: 0px 0px 0px 3px;
+    border-color: @accent;
+}
+
+element alternate.normal {
+    background-color: @transparent;
+    text-color: @fg;
+}
+
+element-text {
+    background-color: @transparent;
+    text-color: inherit;
+    cursor: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+}

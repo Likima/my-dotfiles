@@ -1,0 +1,336 @@
+/* Tokyo Night Modern Waybar Theme */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #c0caf5;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#waybar > box {
+    margin: 8px 12px 0 12px;
+    background: #1a1b26;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid #292e42;
+}
+
+/* Tooltip styling */
+tooltip {
+    background: #1a1b26;
+    border: 1px solid #7aa2f7;
+    border-radius: 12px;
+}
+
+tooltip label {
+    color: #c0caf5;
+    padding: 4px 8px;
+}
+
+/* Workspaces */
+#workspaces {
+    margin: 4px 8px;
+    padding: 0 4px;
+    background: #24283b;
+    border-radius: 12px;
+}
+
+#workspaces button {
+    padding: 4px 10px;
+    margin: 4px 2px;
+    color: #565f89;
+    background: transparent;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    background: #364a82;
+    color: #c0caf5;
+}
+
+#workspaces button.active {
+    background: linear-gradient(135deg, #7aa2f7 0%, #bb9af7 100%);
+    color: #1a1b26;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(122, 162, 247, 0.4);
+}
+
+#workspaces button.urgent {
+    background: #f7768e;
+    color: #1a1b26;
+}
+
+/* Window title */
+#window {
+    margin: 4px 16px;
+    padding: 4px 12px;
+    color: #7dcfff;
+    font-weight: 500;
+}
+
+#window.empty {
+    background: transparent;
+}
+
+/* Common module styling */
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#bluetooth,
+#custom-power,
+#custom-media,
+#custom-weather,
+#custom-updates,
+#tray,
+#idle_inhibitor,
+#language {
+    padding: 4px 14px;
+    margin: 4px 2px;
+    background: #24283b;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#temperature:hover,
+#backlight:hover,
+#network:hover,
+#pulseaudio:hover,
+#wireplumber:hover,
+#bluetooth:hover,
+#custom-power:hover,
+#custom-media:hover,
+#custom-weather:hover,
+#custom-updates:hover,
+#idle_inhibitor:hover,
+#language:hover {
+    background: #364a82;
+}
+
+/* Clock with calendar */
+#clock {
+    color: #bb9af7;
+    font-weight: bold;
+    background: linear-gradient(135deg, #24283b 0%, #292e42 100%);
+}
+
+#clock.calendar {
+    background: #1a1b26;
+    padding: 8px;
+    border-radius: 12px;
+}
+
+/* Battery */
+#battery {
+    color: #9ece6a;
+}
+
+#battery.charging {
+    color: #e0af68;
+}
+
+#battery.warning:not(.charging) {
+    color: #e0af68;
+}
+
+#battery.critical:not(.charging) {
+    color: #f7768e;
+}
+
+/* CPU */
+#cpu {
+    color: #7dcfff;
+}
+
+#cpu.high {
+    color: #f7768e;
+}
+
+/* Memory */
+#memory {
+    color: #bb9af7;
+}
+
+#memory.high {
+    color: #f7768e;
+}
+
+/* Disk */
+#disk {
+    color: #ff9e64;
+}
+
+/* Temperature */
+#temperature {
+    color: #9ece6a;
+}
+
+#temperature.critical {
+    color: #f7768e;
+}
+
+/* Backlight */
+#backlight {
+    color: #e0af68;
+}
+
+/* Network */
+#network {
+    color: #7aa2f7;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: #565f89;
+}
+
+#network.ethernet {
+    color: #9ece6a;
+}
+
+/* Audio */
+#pulseaudio,
+#wireplumber {
+    color: #7dcfff;
+}
+
+#pulseaudio.muted,
+#wireplumber.muted {
+    color: #565f89;
+}
+
+/* Bluetooth */
+#bluetooth {
+    color: #7aa2f7;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #565f89;
+}
+
+#bluetooth.connected {
+    color: #9ece6a;
+}
+
+/* Tray */
+#tray {
+    padding: 4px 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#tray menu {
+    background: #1a1b26;
+    border: 1px solid #7aa2f7;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+#tray menu menuitem {
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+#tray menu menuitem:hover {
+    background: #364a82;
+}
+
+/* Custom Power Button */
+#custom-power {
+    color: #f7768e;
+    font-size: 16px;
+    padding: 4px 12px;
+    margin-right: 8px;
+}
+
+#custom-power:hover {
+    background: #f7768e;
+    color: #1a1b26;
+}
+
+/* Custom Media */
+#custom-media {
+    color: #9ece6a;
+}
+
+#custom-media.playing {
+    color: #7aa2f7;
+}
+
+#custom-media.paused {
+    color: #565f89;
+}
+
+/* Custom Updates */
+#custom-updates {
+    color: #e0af68;
+}
+
+#custom-updates.updated {
+    color: #9ece6a;
+}
+
+/* Custom Weather */
+#custom-weather {
+    color: #7dcfff;
+}
+
+/* Idle Inhibitor */
+#idle_inhibitor {
+    color: #565f89;
+}
+
+#idle_inhibitor.activated {
+    color: #e0af68;
+}
+
+/* Language */
+#language {
+    color: #bb9af7;
+    font-weight: 500;
+}
+
+/* Group styling for left/center/right */
+.modules-left {
+    padding-left: 4px;
+}
+
+.modules-right {
+    padding-right: 4px;
+}
+
+/* Separator between module groups */
+#custom-separator {
+    color: #292e42;
+    font-size: 18px;
+    padding: 0 4px;
+}
