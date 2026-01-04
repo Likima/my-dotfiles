@@ -290,3 +290,4 @@ etc/clusto*.conf
 .config/go
 .config/go/**/*
 
+!*install-packages.sh
