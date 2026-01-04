@@ -213,3 +213,5 @@ etc/clusto*.conf
 !.config/1Password/ssh/*
 
 !*.md
+
+!*install.sh
