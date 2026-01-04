@@ -315,9 +315,13 @@ tooltip label {
 
 /* Language */
 #language {
-    color: #bb9af7;
-    font-weight: 500;
+    padding: 4px 14px;
+    margin: 4px 2px;
+    background: #24283b;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
+
 
 /* Group styling for left/center/right */
 .modules-left {
@@ -333,4 +337,79 @@ tooltip label {
     color: #292e42;
     font-size: 18px;
     padding: 0 4px;
+}
+
+/* Enhanced Spotify module styling */
+#custom-spotify {
+    background: linear-gradient(135deg, #1db954 0%, #191414 100%);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 0 16px;
+    margin: 4px 8px;
+    font-weight: bold;
+    font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+    transition: all 0.3s ease;
+    border: 1px solid #1db954;
+    min-width: 120px;
+}
+
+#custom-spotify:hover {
+    background: linear-gradient(135deg, #1ed760 0%, #1a1b26 100%);
+    border-color: #1ed760;
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+}
+
+#custom-spotify.Playing {
+    background: linear-gradient(135deg, #1db954 0%, #191414 100%);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.4);
+}
+
+#custom-spotify.Paused {
+    background: linear-gradient(135deg, #292e42 0%, #1a1b26 100%);
+    color: #888888;
+    border-color: #565f89;
+}
+
+#custom-spotify.stopped {
+    background: #1a1b26;
+    color: #565f89;
+    border-color: #292e42;
+}
+
+/* Fix for media control buttons - ensure circular hover */
+#custom-media button,
+.media-button {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 4px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+}
+
+#custom-media button:hover,
+.media-button:hover {
+    background: rgba(39, 161, 185, 0.3);
+    border-radius: 50%;
+    /* Ensure equal width/height for circle */
+    min-width: 24px;
+    min-height: 24px;
+}
+
+/* Notification styling for dunst (if using dunst) */
+.notification {
+    background: #1a1b26;
+    color: #e9e9ed;
+    border: 2px solid #27a1b9;
+    border-radius: 12px;
+    font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.4);
+}
+.notification .summary {
+    color: #7aa2f7;
+    font-weight: bold;
+}
+.notification .body {
+    color: #e9e9ed;
 }

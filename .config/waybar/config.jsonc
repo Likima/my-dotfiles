@@ -9,28 +9,23 @@
     "modules-left": [
         "hyprland/workspaces",
         "custom/separator",
-        "hyprland/window"
+        "hyprland/window",
+        "custom/separator"
+
     ],
     "modules-center": [
-        "custom/media"
+        "custom/spotify"
     ],
     "modules-right": [
         "custom/updates",
         "custom/weather",
         "custom/separator",
-        "cpu",
-        "memory",
-        "temperature",
-        "custom/separator",
         "backlight",
         "pulseaudio",
-        "bluetooth",
         "network",
         "custom/separator",
         "battery",
-        "clock",
-        "tray",
-        "custom/power"
+        "clock"
     ],
 
     // Workspaces
@@ -237,7 +232,7 @@
 
     // Media player
     "custom/media": {
-        "format": "{icon} {}",
+        "format": "{icon} {text}",
         "format-icons": {
             "Playing": "󰐊",
             "Paused": "󰏤",
@@ -252,6 +247,28 @@
         "on-click-middle": "playerctl previous",
         "on-scroll-up": "playerctl volume 0.05+",
         "on-scroll-down": "playerctl volume 0.05-"
+    },
+
+    // Spotify
+    "custom/spotify": {
+        "format": "{icon} {text}",
+        "format-icons": {
+            "Playing": "󰓇",
+            "Paused": "󰏤",
+            "stopped": "󰓛"
+        },
+        "return-type": "json",
+        "max-length": 40,
+        "exec": "~/.config/waybar/scripts/spotify_status.sh",
+        "exec-if": "pgrep spotify",
+        "interval": 1,
+        "on-click": "~/.config/waybar/scripts/ags_media_toggle.sh",
+        "on-click-right": "playerctl -p spotify next",
+        "on-click-middle": "playerctl -p spotify previous",
+        "on-scroll-up": "playerctl -p spotify volume 0.05+",
+        "on-scroll-down": "playerctl -p spotify volume 0.05-",
+        "escape": true,
+        "tooltip": true
     },
 
     // Package updates (Arch/AUR)

@@ -15,6 +15,7 @@ configuration {
     me-select-entry: "";
     me-accept-entry: "MousePrimary";
     scroll-method: 1;
+    kb-cancel: "Escape";
 }
 
 /* Tokyo Night Color Palette */
