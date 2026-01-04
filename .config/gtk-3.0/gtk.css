@@ -1,0 +1,211 @@
+/* stylelint-disable */
+/* GTK3 Custom CSS - Tokyo Night Theme */
+
+/* Define colors */
+@define-color bg_color #1a1b26;
+@define-color fg_color #c0caf5;
+@define-color base_color #24283b;
+@define-color text_color #c0caf5;
+@define-color selected_bg_color #7aa2f7;
+@define-color selected_fg_color #1a1b26;
+@define-color tooltip_bg_color #24283b;
+@define-color tooltip_fg_color #c0caf5;
+@define-color error_color #f7768e;
+@define-color warning_color #e0af68;
+@define-color success_color #9ece6a;
+@define-color border_color #414868;
+
+/* Window styling */
+window {
+    background-color: @bg_color;
+    color: @fg_color;
+}
+
+/* Header bars */
+headerbar {
+    background-color: @base_color;
+    color: @fg_color;
+    border-bottom: 1px solid @border_color;
+}
+
+headerbar:backdrop {
+    background-color: @bg_color;
+}
+
+/* Buttons */
+button {
+    background-color: @base_color;
+    color: @fg_color;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+button:hover {
+    background-color: #414868;
+}
+
+button:active,
+button:checked {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* Entries/Input fields */
+entry {
+    background-color: @base_color;
+    color: @fg_color;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+entry:focus {
+    border-color: @selected_bg_color;
+}
+
+/* Selections */
+selection {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: @bg_color;
+}
+
+scrollbar slider {
+    background-color: #414868;
+    border-radius: 4px;
+    min-width: 8px;
+    min-height: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: #565f89;
+}
+
+/* Menus */
+menu {
+    background-color: @base_color;
+    border: 1px solid @border_color;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+menuitem {
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+menuitem:hover {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: @tooltip_bg_color;
+    color: @tooltip_fg_color;
+    border: 1px solid @border_color;
+    border-radius: 6px;
+}
+
+/* Lists and Trees */
+treeview {
+    background-color: @bg_color;
+    color: @fg_color;
+}
+
+treeview:selected {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+row:selected {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* Sidebar (Thunar, Nautilus, etc.) */
+.sidebar {
+    background-color: @base_color;
+    border-right: 1px solid @border_color;
+}
+
+.sidebar row:selected {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* Path bar */
+.path-bar button {
+    background-color: transparent;
+    border: none;
+}
+
+.path-bar button:hover {
+    background-color: #414868;
+}
+
+/* Notebooks/Tabs */
+notebook {
+    background-color: @bg_color;
+}
+
+notebook tab {
+    background-color: @base_color;
+    color: @fg_color;
+    padding: 6px 12px;
+    border: none;
+}
+
+notebook tab:checked {
+    background-color: @bg_color;
+    border-bottom: 2px solid @selected_bg_color;
+}
+
+/* Switches */
+switch {
+    background-color: @base_color;
+    border-radius: 12px;
+}
+
+switch:checked {
+    background-color: @selected_bg_color;
+}
+
+switch slider {
+    background-color: @fg_color;
+    border-radius: 50%;
+}
+
+/* Check and Radio buttons */
+checkbutton check,
+radiobutton radio {
+    background-color: @base_color;
+    border: 1px solid @border_color;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* Progress bars */
+progressbar trough {
+    background-color: @base_color;
+    border-radius: 4px;
+}
+
+progressbar progress {
+    background-color: @selected_bg_color;
+    border-radius: 4px;
+}
+
+/* Separators */
+separator {
+    background-color: @border_color;
+}

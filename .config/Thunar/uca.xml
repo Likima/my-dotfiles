@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <icon>utilities-terminal</icon>
+        <name>Open Terminal Here</name>
+        <submenu></submenu>
+        <unique-id>1703800001</unique-id>
+        <command>kitty --working-directory %f</command>
+        <description>Open a terminal in this directory</description>
+        <range></range>
+        <patterns>*</patterns>
+        <startup-notify/>
+        <directories/>
+    </action>
+    <action>
+        <icon>image-x-generic</icon>
+        <name>View Images</name>
+        <submenu></submenu>
+        <unique-id>1703800005</unique-id>
+        <command>imv %F</command>
+        <description>View images in imv</description>
+        <range></range>
+        <patterns>*.jpg;*.jpeg;*.png;*.webp;*.gif;*.bmp;*.tiff</patterns>
+        <image-files/>
+    </action>
+    <action>
+        <icon>code</icon>
+        <name>Open in VS Code</name>
+        <submenu></submenu>
+        <unique-id>1703800002</unique-id>
+        <command>code %f</command>
+        <description>Open file or folder in VS Code</description>
+        <range></range>
+        <patterns>*</patterns>
+        <startup-notify/>
+        <directories/>
+        <text-files/>
+    </action>
+    <action>
+        <icon>edit-copy</icon>
+        <name>Copy Path</name>
+        <submenu></submenu>
+        <unique-id>1703800003</unique-id>
+        <command>echo -n %f | wl-copy</command>
+        <description>Copy the file path to clipboard</description>
+        <range></range>
+        <patterns>*</patterns>
+        <directories/>
+        <text-files/>
+        <image-files/>
+        <audio-files/>
+        <video-files/>
+        <other-files/>
+    </action>
+    <action>
+        <icon>image-x-generic</icon>
+        <name>Set as Wallpaper</name>
+        <submenu></submenu>
+        <unique-id>1703800004</unique-id>
+        <command>swww img %f --transition-type grow --transition-pos center</command>
+        <description>Set selected image as wallpaper</description>
+        <range></range>
+        <patterns>*.jpg;*.jpeg;*.png;*.webp;*.gif</patterns>
+        <image-files/>
+    </action>
+</actions>

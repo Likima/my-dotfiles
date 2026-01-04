@@ -1,0 +1,376 @@
+// Tokyo Night color scheme
+$bg: #1a1b26;
+$bg-dark: #16161e;
+$bg-highlight: #292e42;
+$fg: #c0caf5;
+$fg-dark: #565f89;
+$blue: #7aa2f7;
+$cyan: #7dcfff;
+$green: #9ece6a;
+$magenta: #bb9af7;
+$red: #f7768e;
+$yellow: #e0af68;
+$spotify-green: #1db954;
+$border-radius: 16px;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+}
+
+// Click catcher - transparent fullscreen overlay
+.click-catcher {
+    background-color: transparent;
+}
+
+// Main window
+.media-popup {
+    background-color: rgba(26, 27, 38, 0.95);
+    border-radius: $border-radius;
+    border: 1px solid $bg-highlight;
+    padding: 0;
+    min-width: 480px;
+}
+
+.popup-container {
+    min-width: 480px;
+}
+
+// Tab bar
+.tab-bar {
+    background-color: transparent;
+    padding: 12px 16px;
+    border-bottom: 1px solid $bg-highlight;
+    min-width: 450px;
+}
+
+.tab-button {
+    all: unset;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: $fg-dark;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 200ms ease;
+    
+    &:hover {
+        color: $fg;
+        background-color: $bg-highlight;
+    }
+    
+    &.active {
+        color: $blue;
+        background-color: rgba(122, 162, 247, 0.1);
+    }
+}
+
+.tab-icon {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+// Content area
+.content {
+    padding: 20px;
+    min-width: 440px;
+    min-height: 280px;
+}
+
+.tab-content {
+    min-width: 440px;
+}
+
+// Media tab
+.media-content {
+    min-width: 380px;
+}
+
+.album-art {
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 12px;
+    background-color: $bg-highlight;
+    background-size: cover;
+    background-position: center;
+    margin-right: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.track-info {
+    min-width: 200px;
+}
+
+.track-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $fg;
+    margin-bottom: 4px;
+}
+
+.track-album {
+    font-size: 12px;
+    color: $fg-dark;
+    margin-bottom: 2px;
+}
+
+.track-artist {
+    font-size: 13px;
+    color: $cyan;
+}
+
+.controls {
+    margin-top: 16px;
+}
+
+.control-button {
+    all: unset;
+    padding: 8px;
+    border-radius: 50%;
+    color: $fg;
+    font-size: 18px;
+    transition: all 200ms ease;
+    min-width: 24px;
+    min-height: 24px;
+    
+    &:hover {
+        background-color: $bg-highlight;
+        color: $blue;
+    }
+    
+    &.play-pause {
+        background-color: $fg;
+        color: $bg;
+        padding: 14px;
+        margin: 0 12px;
+        min-width: 28px;
+        min-height: 28px;
+        border-radius: 50%;
+        font-size: 22px;
+        
+        &:hover {
+            background-color: $blue;
+        }
+    }
+}
+
+.progress-container {
+    margin-top: 16px;
+}
+
+.progress-slider {
+    min-height: 20px;
+    
+    trough {
+        min-height: 4px;
+        border-radius: 2px;
+        background-color: $bg-highlight;
+    }
+    
+    highlight {
+        background-color: $spotify-green;
+        border-radius: 2px;
+    }
+    
+    slider {
+        min-width: 12px;
+        min-height: 12px;
+        border-radius: 50%;
+        background-color: $fg;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.progress-bar {
+    min-height: 4px;
+    border-radius: 2px;
+    background-color: $bg-highlight;
+}
+
+.progress-fill {
+    background-color: $spotify-green;
+    border-radius: 2px;
+    min-height: 4px;
+}
+
+.time-labels {
+    margin-top: 6px;
+}
+
+.time {
+    font-size: 11px;
+    color: $fg-dark;
+}
+
+.player-source {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid $bg-highlight;
+}
+
+.source-icon {
+    font-size: 14px;
+    color: $spotify-green;
+    margin-right: 6px;
+}
+
+.source-name {
+    font-size: 12px;
+    color: $fg-dark;
+}
+
+// Dashboard tab  
+.dashboard-content {
+    min-width: 380px;
+    min-height: 200px;
+}
+
+.datetime-box {
+    margin-bottom: 20px;
+}
+
+.time-display {
+    font-size: 48px;
+    font-weight: 700;
+    color: $fg;
+}
+
+.date-display {
+    font-size: 14px;
+    color: $fg-dark;
+}
+
+.quick-stats {
+    margin-top: 8px;
+}
+
+.stat-box {
+    background-color: $bg-highlight;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 4px;
+    min-width: 100px;
+}
+
+.stat-icon {
+    font-size: 24px;
+    color: $blue;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: $fg;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: $fg-dark;
+    margin-top: 4px;
+}
+
+// Performance tab
+.performance-content {
+    min-width: 380px;
+    min-height: 200px;
+}
+
+.perf-row {
+    margin-bottom: 12px;
+}
+
+.perf-item {
+    background-color: $bg-highlight;
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.perf-header {
+    margin-bottom: 8px;
+}
+
+.perf-icon {
+    font-size: 16px;
+    color: $blue;
+    margin-right: 8px;
+}
+
+.perf-title {
+    font-size: 13px;
+    color: $fg;
+    font-weight: 500;
+}
+
+.perf-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: $fg;
+    margin-bottom: 8px;
+}
+
+.perf-bar {
+    min-height: 6px;
+    border-radius: 3px;
+    background-color: $bg-dark;
+    min-width: 100px;
+}
+
+.perf-fill {
+    border-radius: 3px;
+    min-height: 6px;
+    transition: all 500ms ease;
+    
+    &.cpu { background-color: $blue; }
+    &.mem { background-color: $magenta; }
+    &.disk { background-color: $green; }
+}
+
+// Workspaces tab
+.workspaces-content {
+    min-width: 380px;
+    min-height: 200px;
+}
+
+.workspaces-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: $fg;
+    margin-bottom: 16px;
+}
+
+.workspaces-grid {
+    margin-bottom: 16px;
+}
+
+.workspace-button {
+    all: unset;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 10px;
+    background-color: $bg-highlight;
+    margin: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $fg-dark;
+    transition: all 200ms ease;
+    
+    &:hover {
+        background-color: rgba(122, 162, 247, 0.2);
+        color: $fg;
+    }
+    
+    &.active {
+        background-color: $blue;
+        color: $bg;
+    }
+}
+
+.workspace-info {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid $bg-highlight;
+}
+
+.workspace-current {
+    font-size: 13px;
+    color: $fg-dark;
+}

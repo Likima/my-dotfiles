@@ -1,0 +1,106 @@
+[global]
+    ### Display ###
+    monitor = 0
+    follow = mouse
+    
+    ### Geometry ###
+    width = (300, 450)
+    height = 350
+    origin = top-right
+    offset = 15x60
+    
+    ### Progress bar ###
+    progress_bar = true
+    progress_bar_height = 8
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 400
+    progress_bar_corner_radius = 4
+    
+    ### Appearance ###
+    transparency = 15
+    separator_height = 3
+    padding = 16
+    horizontal_padding = 16
+    text_icon_padding = 16
+    frame_width = 2
+    frame_color = "#7aa2f7"
+    separator_color = frame
+    corner_radius = 12
+    sort = yes
+    idle_threshold = 120
+    
+    ### Text ###
+    font = JetBrainsMono Nerd Font 11
+    line_height = 4
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+    
+    ### Icons ###
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 64
+    icon_corner_radius = 8
+    
+    ### History ###
+    sticky_history = yes
+    history_length = 20
+    
+    ### Mouse ###
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = close_all
+    mouse_right_click = close_current
+
+[urgency_low]
+    background = "#1a1b26e6"
+    foreground = "#a9b1d6"
+    frame_color = "#565f89"
+    highlight = "#7aa2f7"
+    timeout = 5
+
+[urgency_normal]
+    background = "#1a1b26e6"
+    foreground = "#c0caf5"
+    frame_color = "#7aa2f7"
+    highlight = "#7dcfff"
+    timeout = 8
+
+[urgency_critical]
+    background = "#1a1b26e6"
+    foreground = "#f7768e"
+    frame_color = "#f7768e"
+    highlight = "#ff9e64"
+    timeout = 0
+
+# Spotify notifications
+[spotify]
+    appname = Spotify
+    background = "#1a1b26e6"
+    foreground = "#9ece6a"
+    frame_color = "#9ece6a"
+    format = "󰎆 <b>%s</b>\n%b"
+    timeout = 4
+
+# Volume/Brightness notifications
+[volume]
+    appname = "volume"
+    background = "#1a1b26e6"
+    foreground = "#bb9af7"
+    frame_color = "#bb9af7"
+    timeout = 2
+
+# Screenshot notifications
+[screenshot]
+    appname = "grim"
+    background = "#1a1b26e6"
+    foreground = "#7dcfff"
+    frame_color = "#7dcfff"
+    timeout = 3

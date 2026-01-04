@@ -7,8 +7,7 @@
 # But not my dumb little setup script.
 !setup.sh
 
-# Bash stuff (profile just sources bashrc, since it's the only thing sourced
-# when a shell is a login shell).
+# Bash stuff
 !.bash*
 .*.swp
 .bash_history
@@ -16,50 +15,55 @@
 .bash_logout
 !.profile
 
+# AGS configuration
+!.config/ags
+!.config/ags/*
+!.config/ags/**/*
+.config/ags/node_modules
+.config/ags/node_modules/**/*
+.config/ags/@girs
+.config/ags/@girs/**/*
+
+# VS Code (should be mostly ignored, but keep settings if needed)
+!.config/Code
+!.config/Code/User
+!.config/Code/User/settings.json
+!.config/Code/User/keybindings.json
+.config/Code/**/*
+
 # Zsh
 !.zshrc
 !.zsh
 !.zsh/*
 !.zsh/contrib
 !.zsh/contrib/*
-# Do ignore the data directory (my construct, it's where completion cache,
-# history etc live)
 .zsh/data
 .zsh/data/*
-# Do ignore local/sensitive settings
 .zsh/*local
-# Swapfiles (sigh)
 .zsh/*.swp
 
-# Git aliases, identification info
+# Git configuration
 !.gitconfig
-# The gitignore of this repository itself (!)
 !.gitignore
-# My global Git excludes file (acts as a global .gitignore)
 !.gitexcludes
 
-# Mercurial config (yup, stored in a Git repository. Take that, hg!)
+# Mercurial config
 !.hgrc
 
-# IPython config (need directory here so gitignore works correctly.
-# This won't actually pull in the other contetns of the dir, though.
-# Which is good as all I care about is the...
+# IPython config
 !.ipython
-# ...default profile's...
 !.ipython/profile_default
-# ...main config file
 !.ipython/profile_default/ipython_config.py
 
 # Virtualenvwrapper hooks
 !.virtualenvs
 !.virtualenvs/postmkvirtualenv
 
-# IRb config
+# IRb and RVM config
 !.irbrc
-# RVM config
 !.rvmrc
 
-# Vim plugins, ftplugins, syntax etc etc
+# Vim configuration
 !.vim
 !.vim/*
 !.vim/*/*
@@ -67,30 +71,21 @@
 !.vim/*/*/*/*
 !.vim/*/*/*/*/*
 !.vim/*/*/*/*/*/*
-# Do ignore netrw history
 .vim/.netrwhist
-# Do ignore vim-plug stuff, sigh
 .vim/plugged
-# Vim settings
 !.vimrc
-# Ignore swapfiles
 .vim/.*.swp
 .vim/*/.*.swp
 .vim/*/*/.*.swp
 .vim/*/*/*/.*.swp
 
-# Local copies of tools/scripts
-# (but try not to do this, it's really gross)
-# Old ruby based github helper. replace with gh sometime
+# Local tools/scripts
 !bin/hub
-# Python script to parse vim mappings (lmfao)
 !bin/leaders
-# Manual script for analyzing logfiles, still useful
 !bin/logparse
-# Manual script for 'merge up', used a lot sometimes
 !bin/mu
 
-# Config for local daemons (e.g. squid)
+# Config for local daemons
 !etc
 !etc/*
 etc/clusto*.conf
@@ -112,7 +107,8 @@ etc/clusto*.conf
 # RTorrent
 !.rtorrent.rc
 
-# Ag
+# Ack/Ag
+!.ackrc
 !.agrc
 
 # Teamocil
@@ -126,12 +122,12 @@ etc/clusto*.conf
 !.lein
 !.lein/profiles.clj
 
-# Hammerspoon (Lua-based OS X automation tool)
+# Hammerspoon
 !.hammerspoon
 !.hammerspoon/*
 .hammerspoon/.*.swp
 
-# Linux workstation stuff
+# Linux workstation configuration
 !.config
 !.config/bat
 !.config/bat/*
@@ -140,39 +136,41 @@ etc/clusto*.conf
 !.config/direnv
 !.config/direnv/direnv.toml
 !.config/xfce4
-!.config/xfce4/terminal
-!.config/xfce4/terminal/terminalrc
+!.config/xfce4/**/*
 !.config/systemd/
 !.config/systemd/user
 !.config/systemd/user/*
-
 !.config/systemd/user/*/*
-# Keep ignoring this, it comes from the OS.
 .config/systemd/user/gpg-agent.service
-# And don't see swaps as usual (sigh)
 .config/systemd/user/.*.swp
 
 # Hyprland
 !.config/hypr
 !.config/hypr/*
+!.config/hypr/**/*
 
 # Kitty terminal
 !.config/kitty
 !.config/kitty/*
+!.config/kitty/**/*
 
 # Neovim
 !.config/nvim
 !.config/nvim/*
 !.config/nvim/*/*
 !.config/nvim/*/*/*
+!.config/nvim/*/*/*/*
+!.config/nvim/*/*/*/*/*
 
 # Rofi
 !.config/rofi
 !.config/rofi/*
+!.config/rofi/**/*
 
 # Waybar
 !.config/waybar
 !.config/waybar/*
+!.config/waybar/**/*
 
 # IMV (image viewer)
 !.config/imv
@@ -182,23 +180,71 @@ etc/clusto*.conf
 !.config/swww
 !.config/swww/*
 
-# Keep ignoring this, it comes from the OS.
-.config/systemd/user/gpg-agent.service
-# And don't see swaps as usual (sigh)
-.config/systemd/user/.*.swp
+# Dunst (notifications)
+!.config/dunst
+!.config/dunst/*
+!.config/dunst/**/*
 
-# Random arbitrary not-really-a-config file,
-# for use with hexdump
+# PipeWire
+!.config/pipewire
+!.config/pipewire/*
+!.config/pipewire/**/*
+
+# WirePlumber
+!.config/wireplumber
+!.config/wireplumber/*
+!.config/wireplumber/**/*
+
+# GTK themes
+!.config/gtk-3.0
+!.config/gtk-3.0/*
+!.config/gtk-4.0
+!.config/gtk-4.0/*
+
+# Fontconfig
+!.config/fontconfig
+!.config/fontconfig/*
+!.config/fontconfig/**/*
+
+# IBus
+!.config/ibus
+!.config/ibus/*
+
+# Thunar
+!.config/Thunar
+!.config/Thunar/*
+!.config/Thunar/**/*
+
+# EasyEffects
+!.config/easyeffects
+!.config/easyeffects/*
+!.config/easyeffects/**/*
+
+# Tokyo Night GTK Theme
+!.config/Tokyo-Night-GTK-Theme
+!.config/Tokyo-Night-GTK-Theme/*
+!.config/Tokyo-Night-GTK-Theme/**/*
+
+# User scripts
+!.config/usr-scripts
+!.config/usr-scripts/*
+
+# Config files in .config root
+!.config/mimeapps.list
+!.config/pavucontrol.ini
+!.config/README.md
+
+# Hexdump format
 !.config/hexdump.format
 
-# Invoke customization (eg for nixos run.shell loc)
+# Invoke customization
 !.invoke.yml
 
-# GPG settings (does NOT include keychain etc!)
+# GPG settings (NOT including keychain)
 !.gnupg
 !.gnupg/*.conf
 
-# Rust!
+# Rust/Cargo
 !.cargo
 !.cargo/config.toml
 
@@ -212,6 +258,34 @@ etc/clusto*.conf
 !.config/1Password/ssh/
 !.config/1Password/ssh/*
 
+# Markdown files and install scripts
 !*.md
-
 !*install.sh
+
+# Ignore browser/application caches and user data
+.config/chromium
+.config/chromium/**/*
+.config/google-chrome
+.config/google-chrome/**/*
+.config/discord
+.config/discord/**/*
+.config/spotify
+.config/spotify/**/*
+.config/WhatsApp Desktop
+.config/WhatsApp Desktop/**/*
+.config/Electron
+.config/Electron/**/*
+.config/dconf
+.config/dconf/**/*
+.config/pulse
+.config/pulse/**/*
+.config/procps
+.config/procps/**/*
+.config/yay
+.config/yay/**/*
+.config/Webcamoid
+.config/Webcamoid/**/*
+.config/Jackbox Games
+.config/Jackbox Games/**/*
+.config/go
+.config/go/**/*
