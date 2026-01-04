@@ -211,3 +211,5 @@ etc/clusto*.conf
 !.config/1Password/*
 !.config/1Password/ssh/
 !.config/1Password/ssh/*
+
+!*.md
