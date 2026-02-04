@@ -12,6 +12,7 @@ CONFIG_DIRS=(
     "ags"
     "dunst"
     "easyeffects"
+    "fastfetch"
     "fontconfig"
     "gtk-3.0"
     "gtk-4.0"
