@@ -8,71 +8,38 @@ import style from "./style.scss"
 
 const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor
 
-// Helper to close the popup and click-catcher together
 function closePopup() {
     const popup = app.get_window("media-popup")
-    const clickCatcher = app.get_window("click-catcher")
     if (popup) popup.hide()
-    if (clickCatcher) clickCatcher.hide()
 }
 
 function openPopup() {
     const popup = app.get_window("media-popup")
-    const clickCatcher = app.get_window("click-catcher")
-    if (clickCatcher) clickCatcher.show()
     if (popup) popup.show()
-}
-
-// Fullscreen transparent window to catch clicks outside the popup
-function ClickCatcher() {
-    return (
-        <window
-            name="click-catcher"
-            class="click-catcher"
-            visible={false}
-            anchor={TOP | LEFT | RIGHT | BOTTOM}
-            exclusivity={Astal.Exclusivity.IGNORE}
-            keymode={Astal.Keymode.NONE}
-            layer={Astal.Layer.TOP}
-            onButtonPressEvent={() => {
-                closePopup()
-                return true
-            }}
-            application={app}
-        >
-            <box hexpand vexpand />
-        </window>
-    )
 }
 
 function getArtUrl(): string {
     try {
         const url = exec(["playerctl", "-p", "spotify", "metadata", "mpris:artUrl"]).trim()
         if (!url) return ""
-        
-        // Convert Spotify URL if needed
+
         let imageUrl = url
         if (url.includes("open.spotify.com")) {
             imageUrl = url.replace("open.spotify.com", "i.scdn.co")
         }
-        
-        // Download the image locally for GTK compatibility
+
         const cacheDir = `${GLib.get_home_dir()}/.cache/ags`
         const artFile = `${cacheDir}/spotify_art.jpg`
-        
-        // Create cache dir if needed
+
         exec(["mkdir", "-p", cacheDir])
-        
-        // Download the image
         exec(["curl", "-s", "-o", artFile, imageUrl])
-        
+
         return artFile
     } catch {
         return ""
     }
 }
 
-// Get player metadata
 function getPlayerctl(prop: string): string {
     try {
         return exec(["playerctl", "-p", "spotify", "metadata", prop]).trim()
@@ -162,15 +129,15 @@ const duration = createPoll(0, 1000, () => getDuration())
 function DashboardTab() {
     const date = createPoll("", 1000, "date '+%A, %B %d'")
     const time = createPoll("", 1000, "date '+%H:%M'")
-    
+
     return (
         <box class="dashboard-content" vertical>
             <box class="datetime-box" vertical halign={Gtk.Align.CENTER}>
                 <label class="time-display" label={time} />
                 <label class="date-display" label={date} />
             </box>
-            <box class="quick-stats">
-                <box class="stat1-box" vertical>
+            <box class="quick-stats" halign={Gtk.Align.CENTER}>
+                <box class="stat-box" vertical>
                     <label class="stat-icon" label="󰍛" />
                     <label class="stat-value" label={memUsage} />
                     <label class="stat-label" label="Memory" />
@@ -194,8 +161,8 @@ function DashboardTab() {
 function MediaTab() {
     return (
         <box class="media-content" vertical>
-            <box>
-                <box 
+            <box class="media-header">
+                <box
                     class="album-art"
                     css={artUrl((url: string) => url ? `background-image: url("file://${url}");` : "")}
                 />
@@ -205,28 +172,28 @@ function MediaTab() {
                     <label class="track-artist" label={artist} halign={Gtk.Align.START} truncate />
                 </box>
             </box>
-            
+
             <box class="controls" halign={Gtk.Align.CENTER}>
-                <button 
-                    class="control-button" 
+                <button
+                    class="control-button"
                     onClicked={() => execAsync(["playerctl", "-p", "spotify", "previous"])}
                 >
                     <label label="󰒮" />
                 </button>
-                <button 
-                    class="control-button play-pause" 
+                <button
+                    class="control-button play-pause"
                     onClicked={() => execAsync(["playerctl", "-p", "spotify", "play-pause"])}
                 >
                     <label label={status((s: string) => s === "Playing" ? "󰏤" : "󰐊")} />
                 </button>
-                <button 
-                    class="control-button" 
+                <button
+                    class="control-button"
                     onClicked={() => execAsync(["playerctl", "-p", "spotify", "next"])}
                 >
                     <label label="󰒭" />
                 </button>
             </box>
-            
+
             <box class="progress-container" vertical>
                 <slider
                     class="progress-slider"
@@ -246,7 +213,7 @@ function MediaTab() {
                     <label class="time" label={duration(formatTime)} halign={Gtk.Align.END} />
                 </box>
             </box>
-            
+
             <box class="player-source" halign={Gtk.Align.CENTER}>
                 <label class="source-icon" label="" />
                 <label class="source-name" label="Spotify" />
@@ -262,10 +229,11 @@ function PerformanceTab() {
             <box class="perf-row">
                 <box class="perf-item" vertical hexpand>
                     <box class="perf-header">
-                        <label class="perf-icon" label="󰻠" />
+                        <label class="perf-icon cpu" label="󰻠" />
                         <label class="perf-title" label="CPU" />
+                        <box hexpand />
+                        <label class="perf-value" label={cpuUsage} />
                     </box>
-                    <label class="perf-value" label={cpuUsage} />
                     <box class="perf-bar">
                         <box class="perf-fill cpu" css={cpuUsage((v: string) => `min-width: ${parseInt(v)}px;`)} />
                     </box>
@@ -274,10 +242,11 @@ function PerformanceTab() {
             <box class="perf-row">
                 <box class="perf-item" vertical hexpand>
                     <box class="perf-header">
-                        <label class="perf-icon" label="󰍛" />
+                        <label class="perf-icon mem" label="󰍛" />
                         <label class="perf-title" label="Memory" />
+                        <box hexpand />
+                        <label class="perf-value" label={memUsage} />
                     </box>
-                    <label class="perf-value" label={memUsage} />
                     <box class="perf-bar">
                         <box class="perf-fill mem" css={memUsage((v: string) => `min-width: ${parseInt(v)}px;`)} />
                     </box>
@@ -286,10 +255,11 @@ function PerformanceTab() {
             <box class="perf-row">
                 <box class="perf-item" vertical hexpand>
                     <box class="perf-header">
-                        <label class="perf-icon" label="󰋊" />
+                        <label class="perf-icon disk" label="󰋊" />
                         <label class="perf-title" label="Disk" />
+                        <box hexpand />
+                        <label class="perf-value" label={diskUsage} />
                     </box>
-                    <label class="perf-value" label={diskUsage} />
                     <box class="perf-bar">
                         <box class="perf-fill disk" css={diskUsage((v: string) => `min-width: ${parseInt(v)}px;`)} />
                     </box>
@@ -302,14 +272,14 @@ function PerformanceTab() {
 // Workspaces Tab
 function WorkspacesTab() {
     const workspaces = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    
+
     return (
         <box class="workspaces-content" vertical>
             <label class="workspaces-title" label="Workspaces" halign={Gtk.Align.START} />
             <box class="workspaces-grid" halign={Gtk.Align.CENTER}>
                 {workspaces.map(ws => (
                     <button
-                        class={activeWorkspace((active: string) => 
+                        class={activeWorkspace((active: string) =>
                             `workspace-button ${active === String(ws) ? 'active' : ''}`
                         )}
                         onClicked={() => execAsync(["hyprctl", "dispatch", "workspace", String(ws)])}
@@ -327,8 +297,7 @@ function WorkspacesTab() {
 
 function MediaPopup() {
     const [activeTab, setActiveTab] = createState("media")
-    
-    // Content components for each tab
+
     function TabContent() {
         return (
             <box vertical class="content">
@@ -359,17 +328,16 @@ function MediaPopup() {
             </box>
         )
     }
-    
+
     return (
         <window
             name="media-popup"
-            class="media-popup"
+            class="media-popup-window"
             visible={false}
-            anchor={TOP}
-            exclusivity={Astal.Exclusivity.NORMAL}
-            keymode={Astal.Keymode.EXCLUSIVE}
+            anchor={TOP | LEFT | RIGHT | BOTTOM}
+            exclusivity={Astal.Exclusivity.IGNORE}
+            keymode={Astal.Keymode.ON_DEMAND}
             layer={Astal.Layer.OVERLAY}
-            
             onKeyPressEvent={(self, event: Gdk.EventKey) => {
                 if (event.keyval === Gdk.KEY_Escape) {
                     closePopup()
@@ -379,48 +347,63 @@ function MediaPopup() {
             }}
             application={app}
         >
-            <box vertical class="popup-container">
-                <box class="tab-bar">
-                    <button 
-                        class={activeTab((t: string) => `tab-button ${t === 'dashboard' ? 'active' : ''}`)}
-                        onClicked={() => setActiveTab("dashboard")}
+            <eventbox
+                hexpand
+                vexpand
+                onButtonPressEvent={() => {
+                    closePopup()
+                    return true
+                }}
+            >
+                <box hexpand vexpand valign={Gtk.Align.START} halign={Gtk.Align.CENTER}>
+                    <eventbox
+                        onButtonPressEvent={() => true}
                     >
-                        <box>
-                            <label class="tab-icon" label="󰕮" />
-                            <label label="Dashboard" />
-                        </box>
-                    </button>
-                    <button 
-                        class={activeTab((t: string) => `tab-button ${t === 'media' ? 'active' : ''}`)}
-                        onClicked={() => setActiveTab("media")}
-                    >
-                        <box>
-                            <label class="tab-icon" label="󰎈" />
-                            <label label="Media" />
-                        </box>
-                    </button>
-                    <button 
-                        class={activeTab((t: string) => `tab-button ${t === 'performance' ? 'active' : ''}`)}
-                        onClicked={() => setActiveTab("performance")}
-                    >
-                        <box>
-                            <label class="tab-icon" label="󰓅" />
-                            <label label="Performance" />
-                        </box>
-                    </button>
-                    <button 
-                        class={activeTab((t: string) => `tab-button ${t === 'workspaces' ? 'active' : ''}`)}
-                        onClicked={() => setActiveTab("workspaces")}
-                    >
-                        <box>
-                            <label class="tab-icon" label="󰕰" />
-                            <label label="Workspaces" />
-                        </box>
-                    </button>
-                </box>
+                        <box vertical class="popup-container">
+                            <box class="tab-bar">
+                                <button
+                                    class={activeTab((t: string) => `tab-button ${t === 'dashboard' ? 'active' : ''}`)}
+                                    onClicked={() => setActiveTab("dashboard")}
+                                >
+                                    <box>
+                                        <label class="tab-icon" label="󰕮" />
+                                        <label label="Dashboard" />
+                                    </box>
+                                </button>
+                                <button
+                                    class={activeTab((t: string) => `tab-button ${t === 'media' ? 'active' : ''}`)}
+                                    onClicked={() => setActiveTab("media")}
+                                >
+                                    <box>
+                                        <label class="tab-icon" label="󰎈" />
+                                        <label label="Media" />
+                                    </box>
+                                </button>
+                                <button
+                                    class={activeTab((t: string) => `tab-button ${t === 'performance' ? 'active' : ''}`)}
+                                    onClicked={() => setActiveTab("performance")}
+                                >
+                                    <box>
+                                        <label class="tab-icon" label="󰓅" />
+                                        <label label="Performance" />
+                                    </box>
+                                </button>
+                                <button
+                                    class={activeTab((t: string) => `tab-button ${t === 'workspaces' ? 'active' : ''}`)}
+                                    onClicked={() => setActiveTab("workspaces")}
+                                >
+                                    <box>
+                                        <label class="tab-icon" label="󰕰" />
+                                        <label label="Workspaces" />
+                                    </box>
+                                </button>
+                            </box>
 
-                <TabContent />
-            </box>
+                            <TabContent />
+                        </box>
+                    </eventbox>
+                </box>
+            </eventbox>
         </window>
     )
 }
@@ -429,7 +412,6 @@ app.start({
     css: style,
     instanceName: "media-popup",
     main() {
-        ClickCatcher()
         MediaPopup()
     },
     requestHandler(request, res) {

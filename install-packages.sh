@@ -1,25 +1,9 @@
-// filepath: install-packages.sh
 #!/bin/bash
 
 set -e
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
-
-print_status() {
-    echo -e "${BLUE}[*]${NC} $1"
-}
-
-print_success() {
-    echo -e "${GREEN}[✓]${NC} $1"
-}
-
-print_error() {
-    echo -e "${RED}[✗]${NC} $1"
-}
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DOTFILES_DIR/scripts/utils.sh"
 
 # Check if yay is installed
 if ! command -v yay &> /dev/null; then
@@ -44,20 +28,20 @@ OFFICIAL_PACKAGES=(
     xdg-desktop-portal-gtk
     qt5-wayland
     qt6-wayland
-    
+
     # Status bar
     waybar
-    
+
     # Terminal
     kitty
-    
+
     # Editor
     neovim
-    
+
     # Notifications
     dunst
     libnotify
-    
+
     # Audio
     pipewire
     pipewire-alsa
@@ -66,21 +50,21 @@ OFFICIAL_PACKAGES=(
     wireplumber
     pavucontrol
     easyeffects
-    
+
     # File manager
     thunar
     thunar-archive-plugin
     thunar-volman
     gvfs
     gvfs-mtp
-    
+
     # Image viewer
     imv
-    
+
     # GTK theming
     gtk3
     gtk4
-    
+
     # Fonts
     fontconfig
     ttf-jetbrains-mono-nerd
@@ -88,10 +72,10 @@ OFFICIAL_PACKAGES=(
     otf-font-awesome
     noto-fonts
     noto-fonts-emoji
-    
+
     # Input
     ibus
-    
+
     # Utilities
     polkit-gnome
     grim
@@ -110,7 +94,7 @@ OFFICIAL_PACKAGES=(
     xdg-user-dirs
     jq
     socat
-    
+
     # Development
     nodejs
     npm
@@ -118,7 +102,7 @@ OFFICIAL_PACKAGES=(
     go
     python
     python-pip
-    
+
     # Browsers
     chromium
 )
@@ -127,20 +111,20 @@ OFFICIAL_PACKAGES=(
 AUR_PACKAGES=(
     # Launcher
     rofi-wayland
-    
+
     # Wallpaper
     swww
-    
+
     # AGS
     aylurs-gtk-shell
-    
+
     # Apps
     google-chrome
     discord
     spotify-launcher
     visual-studio-code-bin
     whatsapp-for-linux
-    
+
     # Webcam
     webcamoid
 )
