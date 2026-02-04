@@ -3,6 +3,7 @@ import { Astal, Gtk, Gdk } from "ags/gtk3"
 import { exec, execAsync } from "ags/process"
 import { createPoll } from "ags/time"
 import { createState } from "ags"
+import GLib from "gi://GLib"
 import style from "./style.scss"
 
 const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor
@@ -47,12 +48,25 @@ function ClickCatcher() {
 function getArtUrl(): string {
     try {
         const url = exec(["playerctl", "-p", "spotify", "metadata", "mpris:artUrl"]).trim()
-        // Spotify URLs come as https://open.spotify.com/image/... 
-        // Need to convert to https://i.scdn.co/image/...
+        if (!url) return ""
+        
+        // Convert Spotify URL if needed
+        let imageUrl = url
         if (url.includes("open.spotify.com")) {
-            return url.replace("open.spotify.com", "i.scdn.co")
+            imageUrl = url.replace("open.spotify.com", "i.scdn.co")
         }
-        return url
+        
+        // Download the image locally for GTK compatibility
+        const cacheDir = `${GLib.get_home_dir()}/.cache/ags`
+        const artFile = `${cacheDir}/spotify_art.jpg`
+        
+        // Create cache dir if needed
+        exec(["mkdir", "-p", cacheDir])
+        
+        // Download the image
+        exec(["curl", "-s", "-o", artFile, imageUrl])
+        
+        return artFile
     } catch {
         return ""
     }
@@ -183,7 +197,7 @@ function MediaTab() {
             <box>
                 <box 
                     class="album-art"
-                    css={artUrl((url: string) => url ? `background-image: url("${url}");` : "")}
+                    css={artUrl((url: string) => url ? `background-image: url("file://${url}");` : "")}
                 />
                 <box class="track-info" vertical valign={Gtk.Align.CENTER}>
                     <label class="track-title" label={title} halign={Gtk.Align.START} truncate />
@@ -356,9 +370,8 @@ function MediaPopup() {
             keymode={Astal.Keymode.EXCLUSIVE}
             layer={Astal.Layer.OVERLAY}
             
-            onKeyPressEvent={(self, event) => {
-                const [success, keyval] = event.get_keyval()
-                if (success && keyval === Gdk.KEY_Escape) {
+            onKeyPressEvent={(self, event: Gdk.EventKey) => {
+                if (event.keyval === Gdk.KEY_Escape) {
                     closePopup()
                     return true
                 }

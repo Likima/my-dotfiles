@@ -8,7 +8,7 @@ if ! pgrep -x "swww-daemon" > /dev/null; then
 fi
 
 # Set default wallpaper with transition
-WALLPAPER="${1:-$HOME/Pictures/Wallpapers/sunset.jpg}"
+WALLPAPER="${1:-$HOME/Pictures/Wallpapers/a_mountain_with_trees_and_moon.jpg}"
 
 # Check if file is a GIF - use simple transition to avoid stalling
 if [[ "$WALLPAPER" == *.gif ]]; then

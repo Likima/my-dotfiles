@@ -1,0 +1,10 @@
+[soe][Equalizer#0]
+inputGain=-4.5
+
+[soe][Equalizer#0#left]
+band1Gain=0.10999999999999999
+band3Gain=0.05
+
+[soe][Equalizer#0#right]
+band1Gain=0.10999999999999999
+band3Gain=0.05
