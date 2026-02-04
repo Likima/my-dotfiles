@@ -118,6 +118,11 @@
 !.config/usr-scripts
 !.config/usr-scripts/*
 
+# Theme switcher
+!.config/theme
+!.config/theme/*
+!.config/theme/**/*
+
 # Config files in .config root
 !.config/mimeapps.list
 !.config/pavucontrol.ini

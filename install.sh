@@ -25,6 +25,7 @@ CONFIG_DIRS=(
     "swww"
     "waybar"
     "wireplumber"
+    "theme"
     "Thunar"
     "xfce4"
 )
@@ -131,6 +132,14 @@ main() {
         else
             print_warning "npm not found, skipping AGS setup. Run 'npm install' in ~/.config/ags manually"
         fi
+    fi
+
+    # Apply default theme
+    if [ -f "$CONFIG_DIR/theme/apply.sh" ]; then
+        print_status "Applying default theme (tokyo-night)..."
+        chmod +x "$CONFIG_DIR/theme/apply.sh" "$CONFIG_DIR/theme/switch.sh"
+        bash "$CONFIG_DIR/theme/apply.sh" tokyo-night
+        print_success "Default theme applied"
     fi
 
     # Create common directories

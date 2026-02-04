@@ -15,11 +15,11 @@ get_cover_art() {
         if [[ "$artUrl" == *"open.spotify.com"* ]]; then
             artUrl="${artUrl/open.spotify.com/i.scdn.co}"
         fi
-        
+
         coverPath="$CACHE_DIR/cover.png"
         # Use -L to follow redirects
         curl -sL "$artUrl" -o "$coverPath" 2>/dev/null
-        
+
         # Verify the file was downloaded correctly
         if [[ -s "$coverPath" ]]; then
             echo "$coverPath"
@@ -35,24 +35,24 @@ show_popup() {
     artist=$(playerctl -p spotify metadata artist 2>/dev/null || echo "Unknown Artist")
     album=$(playerctl -p spotify metadata album 2>/dev/null || echo "Unknown Album")
     status=$(playerctl -p spotify status 2>/dev/null || echo "Stopped")
-    
+
     # Get cover art
     coverPath=$(get_cover_art)
-    
+
     # Create GTK popup using yad or zenity alternative
     # Using rofi for a cleaner look that matches your theme
-    
+
     if [[ "$status" == "Playing" ]]; then
         play_icon="󰏤 Pause"
     else
         play_icon="󰐊 Play"
     fi
-    
+
     choice=$(echo -e "󰒮 Previous\n$play_icon\n󰒭 Next\n󰓎 Shuffle\n󰑖 Repeat" | rofi -dmenu -p "󰓇 $title - $artist" -kb-cancel "Escape" -click-to-exit -theme-str '
         window {
             width: 300px;
-            background-color: #1a1b26;
-            border-color: #7aa2f7;
+            background-color: @BG@;
+            border-color: @ACCENT@;
             border: 2px;
             border-radius: 12px;
         }
@@ -64,16 +64,16 @@ show_popup() {
             padding: 8px 12px;
         }
         element selected {
-            background-color: #364a82;
-            text-color: #1a1b26;
+            background-color: @BG_SELECTED@;
+            text-color: @BG@;
         }
         inputbar {
             padding: 8px 12px;
-            background-color: #292e42;
-            text-color: #7aa2f7;
+            background-color: @BG_HIGHLIGHT@;
+            text-color: @ACCENT@;
         }
     ')
-    
+
     case "$choice" in
         *"Previous"*) playerctl -p spotify previous ;;
         *"Play"*|*"Pause"*) playerctl -p spotify play-pause ;;

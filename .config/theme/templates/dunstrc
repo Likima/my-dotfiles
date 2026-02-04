@@ -18,13 +18,13 @@
     progress_bar_min_width = 200
     progress_bar_max_width = 360
     progress_bar_corner_radius = 4
-    highlight = "#7aa2f7"
+    highlight = "@ACCENT@"
 
     # Appearance
     transparency = 0
     corner_radius = 12
     frame_width = 2
-    frame_color = "#7aa2f7"
+    frame_color = "@ACCENT@"
     separator_height = 2
     separator_color = frame
     padding = 14
@@ -75,33 +75,33 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#1a1b26"
-    foreground = "#a9b1d6"
-    frame_color = "#292e42"
-    highlight = "#565f89"
+    background = "@BG@"
+    foreground = "@FG@"
+    frame_color = "@BG_HIGHLIGHT@"
+    highlight = "@FG_DARK@"
     timeout = 5
 
 [urgency_normal]
-    background = "#1a1b26"
-    foreground = "#c0caf5"
-    frame_color = "#7aa2f7"
-    highlight = "#7aa2f7"
+    background = "@BG@"
+    foreground = "@FG@"
+    frame_color = "@ACCENT@"
+    highlight = "@ACCENT@"
     timeout = 10
 
 [urgency_critical]
-    background = "#1a1b26"
-    foreground = "#c0caf5"
-    frame_color = "#f7768e"
-    highlight = "#f7768e"
+    background = "@BG@"
+    foreground = "@FG@"
+    frame_color = "@RED@"
+    highlight = "@RED@"
     timeout = 0
 
 # Volume - purple progress bar, subtle frame
 [volume]
     appname = "volume"
-    background = "#1a1b26"
-    foreground = "#c0caf5"
-    frame_color = "#292e42"
-    highlight = "#bb9af7"
+    background = "@BG@"
+    foreground = "@FG@"
+    frame_color = "@BG_HIGHLIGHT@"
+    highlight = "@MAGENTA@"
     format = "<b>%s</b>"
     timeout = 2
     history_ignore = yes
@@ -109,19 +109,19 @@
 # Brightness - yellow progress bar, subtle frame
 [brightness]
     appname = "brightness"
-    background = "#1a1b26"
-    foreground = "#c0caf5"
-    frame_color = "#292e42"
-    highlight = "#e0af68"
+    background = "@BG@"
+    foreground = "@FG@"
+    frame_color = "@BG_HIGHLIGHT@"
+    highlight = "@YELLOW@"
     format = "<b>%s</b>"
     timeout = 2
     history_ignore = yes
 
-# Spotify
+# Spotify (brand colors - not themed)
 [spotify]
     appname = Spotify
-    background = "#1a1b26"
-    foreground = "#c0caf5"
+    background = "@BG@"
+    foreground = "@FG@"
     frame_color = "#1db954"
     highlight = "#1db954"
     format = "<b>Now Playing</b>\n<b>%s</b>\n%b"
@@ -130,11 +130,11 @@
     max_icon_size = 64
     script = ~/.config/dunst/scripts/spotify-notify.sh
 
-# Discord
+# Discord (brand colors - not themed)
 [discord]
     appname = Discord
-    background = "#1a1b26"
-    foreground = "#c0caf5"
+    background = "@BG@"
+    foreground = "@FG@"
     frame_color = "#5865f2"
     format = "<b>%s</b>\n%b"
     timeout = 8
@@ -142,8 +142,8 @@
 [discord-dm]
     appname = Discord
     summary = "*Direct Message*"
-    background = "#1a1b26"
-    foreground = "#c0caf5"
+    background = "@BG@"
+    foreground = "@FG@"
     frame_color = "#eb459e"
     format = "<b>%s</b>\n%b"
     timeout = 10
@@ -152,8 +152,8 @@
 [discord-mention]
     appname = Discord
     body = "*@*"
-    background = "#1a1b26"
-    foreground = "#c0caf5"
+    background = "@BG@"
+    foreground = "@FG@"
     frame_color = "#faa61a"
     format = "<b>%s</b>\n%b"
     timeout = 10
