@@ -64,6 +64,7 @@ OFFICIAL_PACKAGES=(
     # GTK theming
     gtk3
     gtk4
+    papirus-icon-theme
 
     # Fonts
     fontconfig
@@ -124,6 +125,9 @@ AUR_PACKAGES=(
     spotify-launcher
     visual-studio-code-bin
     whatsapp-for-linux
+
+    # Icon theme folder colors
+    papirus-folders-git
 
     # Webcam
     webcamoid

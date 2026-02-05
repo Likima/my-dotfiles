@@ -96,6 +96,7 @@ declare -A VARS=(
     [COLOR15]="$COLOR15"
     [COLOR16]="$COLOR16"
     [COLOR17]="$COLOR17"
+    [ICON_THEME]="$ICON_THEME"
     [WALLPAPER]="$WALLPAPER"
 )
 
@@ -155,6 +156,8 @@ apply_template "$TEMPLATES_DIR/rofi-keybinds.rasi"       "$CONFIG_DIR/rofi/keybi
 apply_template "$TEMPLATES_DIR/rofi.conf"                "$CONFIG_DIR/rofi/rofi.conf"
 apply_template "$TEMPLATES_DIR/kitty-theme.conf"         "$CONFIG_DIR/kitty/current-theme.conf"
 apply_template "$TEMPLATES_DIR/gtk.css"                  "$CONFIG_DIR/gtk-3.0/gtk.css"
+apply_template "$TEMPLATES_DIR/gtk3-settings.ini"        "$CONFIG_DIR/gtk-3.0/settings.ini"
+apply_template "$TEMPLATES_DIR/gtk4-settings.ini"        "$CONFIG_DIR/gtk-4.0/settings.ini"
 apply_template "$TEMPLATES_DIR/hypr-theme.conf"          "$CONFIG_DIR/hypr/theme.conf"
 apply_template "$TEMPLATES_DIR/hyprlock.conf"            "$CONFIG_DIR/hypr/hyprlock.conf"
 
@@ -166,6 +169,12 @@ chmod +x "$CONFIG_DIR/waybar/scripts/spotify_popup.sh" 2>/dev/null
 echo "$THEME_NAME" > "$THEME_DIR/current"
 
 # --- Reload services ---
+
+# --- Update icon folder colors ---
+
+if command -v papirus-folders &>/dev/null; then
+    papirus-folders -C "$FOLDER_COLOR" --theme Papirus-Dark &>/dev/null && echo "  Papirus folders: $FOLDER_COLOR"
+fi
 
 echo "---"
 echo "Reloading services..."
