@@ -97,6 +97,7 @@ declare -A VARS=(
     [COLOR16]="$COLOR16"
     [COLOR17]="$COLOR17"
     [ICON_THEME]="$ICON_THEME"
+    [NVIM_THEME]="$NVIM_THEME"
     [WALLPAPER]="$WALLPAPER"
 )
 
@@ -160,6 +161,7 @@ apply_template "$TEMPLATES_DIR/gtk3-settings.ini"        "$CONFIG_DIR/gtk-3.0/se
 apply_template "$TEMPLATES_DIR/gtk4-settings.ini"        "$CONFIG_DIR/gtk-4.0/settings.ini"
 apply_template "$TEMPLATES_DIR/hypr-theme.conf"          "$CONFIG_DIR/hypr/theme.conf"
 apply_template "$TEMPLATES_DIR/hyprlock.conf"            "$CONFIG_DIR/hypr/hyprlock.conf"
+apply_template "$TEMPLATES_DIR/chadrc.lua"               "$CONFIG_DIR/nvim/lua/chadrc.lua"
 
 # Preserve executable permission on scripts
 chmod +x "$CONFIG_DIR/waybar/scripts/spotify_popup.sh" 2>/dev/null
