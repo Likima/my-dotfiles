@@ -128,6 +128,9 @@ AUR_PACKAGES=(
     visual-studio-code-bin
     whatsapp-for-linux
 
+    # Spotify theming
+    spicetify-cli
+
     # Icon theme folder colors
     papirus-folders-git
 

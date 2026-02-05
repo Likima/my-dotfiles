@@ -162,6 +162,7 @@ apply_template "$TEMPLATES_DIR/gtk4-settings.ini"        "$CONFIG_DIR/gtk-4.0/se
 apply_template "$TEMPLATES_DIR/hypr-theme.conf"          "$CONFIG_DIR/hypr/theme.conf"
 apply_template "$TEMPLATES_DIR/hyprlock.conf"            "$CONFIG_DIR/hypr/hyprlock.conf"
 apply_template "$TEMPLATES_DIR/chadrc.lua"               "$CONFIG_DIR/nvim/lua/chadrc.lua"
+apply_template "$TEMPLATES_DIR/spicetify-color.ini"      "$CONFIG_DIR/spicetify/Themes/dotfiles-theme/color.ini"
 
 # Preserve executable permission on scripts
 chmod +x "$CONFIG_DIR/waybar/scripts/spotify_popup.sh" 2>/dev/null
@@ -207,6 +208,12 @@ if pgrep -x dunst &>/dev/null; then
     dunst &>/dev/null &
     disown
     echo "  Dunst restarted"
+fi
+
+# Spicetify
+if command -v spicetify &>/dev/null; then
+    spicetify config current_theme dotfiles-theme color_scheme base &>/dev/null
+    spicetify apply &>/dev/null && echo "  Spicetify applied"
 fi
 
 # AGS
