@@ -79,6 +79,7 @@ OFFICIAL_PACKAGES=(
     ibus
 
     # Utilities
+    fzf
     polkit-gnome
     grim
     slurp
