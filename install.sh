@@ -116,7 +116,6 @@ main() {
             if [ -f "$script" ]; then
                 script_name=$(basename "$script")
                 create_symlink "$script" "$HOME/.local/bin/$script_name"
-                chmod +x "$script"
             fi
         done
         print_warning "Make sure ~/.local/bin is in your PATH"
@@ -135,10 +134,14 @@ main() {
         fi
     fi
 
+    # Make all shell scripts executable
+    print_status "Setting executable permissions on shell scripts..."
+    find "$DOTFILES_DIR" -name "*.sh" -exec chmod +x {} +
+    print_success "All .sh files marked executable"
+
     # Apply default theme
     if [ -f "$CONFIG_DIR/theme/apply.sh" ]; then
         print_status "Applying default theme (tokyo-night)..."
-        chmod +x "$CONFIG_DIR/theme/apply.sh" "$CONFIG_DIR/theme/switch.sh"
         bash "$CONFIG_DIR/theme/apply.sh" tokyo-night
         print_success "Default theme applied"
     fi
