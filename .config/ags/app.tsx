@@ -424,7 +424,7 @@ function TerminalWidget() {
             </box>
 
             <box vertical class="term-content">
-                <label class="term-prompt" label="$ neofetch" halign={Gtk.Align.START} />
+                <label class="term-prompt" label="$ fastfetch" halign={Gtk.Align.START} />
 
                 <label class="term-userhost" label={sysInfoData((d: string) =>
                     d.split("|")[0] || "user@host"
@@ -549,8 +549,8 @@ function ControlPanel() {
                     return true
                 }}
             >
-                <box vertical valign={Gtk.Align.CENTER} halign={Gtk.Align.CENTER} spacing={12}>
-                    <box spacing={12} halign={Gtk.Align.CENTER}>
+                <box vertical hexpand vexpand class="popup-container">
+                    <box hexpand vexpand={false} spacing={24}>
                         <eventbox onButtonPressEvent={() => true}>
                             <MediaWidget />
                         </eventbox>
@@ -561,15 +561,11 @@ function ControlPanel() {
                             <SystemWidget />
                         </eventbox>
                     </box>
-                    <box spacing={12} halign={Gtk.Align.CENTER}>
-                        <eventbox onButtonPressEvent={() => true}>
-                            <TerminalWidget />
-                        </eventbox>
-                        <eventbox onButtonPressEvent={() => true}>
+                    <box hexpand vexpand spacing={24}>
+                        <eventbox onButtonPressEvent={() => true} hexpand>
                             <ProcessesWidget />
                         </eventbox>
                     </box>
-                    <label class="close-hint" label="Press Esc or click outside to close" halign={Gtk.Align.CENTER} />
                 </box>
             </eventbox>
         </window>
