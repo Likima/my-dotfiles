@@ -214,7 +214,7 @@ const topProcs = createPoll("", 3000, () => {
 
 function MediaWidget() {
     return (
-        <box vertical class="tile" hexpand>
+        <box vertical class="tile" hexpand vexpand>
             <box class="widget-header">
                 <label class="widget-header-icon media" label="󰎈" />
                 <label class="widget-header-title" label="Now Playing" />
@@ -283,7 +283,7 @@ function MediaWidget() {
 
 function PerformanceWidget() {
     return (
-        <box vertical class="tile" hexpand>
+        <box vertical class="tile" hexpand vexpand>
             <box class="widget-header">
                 <label class="widget-header-icon perf" label="󰓅" />
                 <label class="widget-header-title" label="Performance" />
@@ -335,7 +335,7 @@ function PerformanceWidget() {
 
 function SystemWidget() {
     return (
-        <box vertical class="tile" hexpand>
+        <box vertical class="tile" hexpand vexpand>
             <box class="widget-header">
                 <label class="widget-header-icon sys" label="󰕰" />
                 <label class="widget-header-title" label="System" />
@@ -477,7 +477,7 @@ function TerminalWidget() {
 
 function ProcessesWidget() {
     return (
-        <box vertical class="tile" hexpand>
+        <box vertical class="tile" hexpand vexpand>
             <box class="widget-header">
                 <label class="widget-header-icon proc" label="󰍹" />
                 <label class="widget-header-title" label="Processes" />
@@ -549,20 +549,20 @@ function ControlPanel() {
                     return true
                 }}
             >
-                <box vertical hexpand vexpand class="popup-container">
-                    <box hexpand vexpand={false} spacing={24}>
-                        <eventbox onButtonPressEvent={() => true}>
+                <box vertical hexpand vexpand spacing={24} class="popup-container">
+                    <box hexpand vexpand spacing={24}>
+                        <eventbox onButtonPressEvent={() => true} vexpand>
                             <MediaWidget />
                         </eventbox>
-                        <eventbox onButtonPressEvent={() => true}>
+                        <eventbox onButtonPressEvent={() => true} vexpand>
                             <PerformanceWidget />
                         </eventbox>
-                        <eventbox onButtonPressEvent={() => true}>
+                        <eventbox onButtonPressEvent={() => true} vexpand>
                             <SystemWidget />
                         </eventbox>
                     </box>
                     <box hexpand vexpand spacing={24}>
-                        <eventbox onButtonPressEvent={() => true} hexpand>
+                        <eventbox onButtonPressEvent={() => true} hexpand vexpand>
                             <ProcessesWidget />
                         </eventbox>
                     </box>

@@ -25,6 +25,10 @@ $spotify-green: #1db954;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.popup-container {
+    padding: 24px;
+}
+
 // =========================
 // Tile (base for all tiles)
 // =========================
@@ -36,7 +40,6 @@ $spotify-green: #1db954;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
                 0 4px 12px rgba(0, 0, 0, 0.3);
     padding: 18px;
-    min-width: 270px;
 }
 
 // =========================
