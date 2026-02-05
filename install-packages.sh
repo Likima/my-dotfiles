@@ -58,8 +58,9 @@ OFFICIAL_PACKAGES=(
     gvfs
     gvfs-mtp
 
-    # Image viewer
+    # Image viewer / processing
     imv
+    imagemagick
 
     # GTK theming
     gtk3
