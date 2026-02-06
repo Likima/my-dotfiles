@@ -1,15 +1,13 @@
 #!/bin/bash
-# SWWW Wallpaper Selector - Rofi with live preview
+# SWWW Wallpaper Selector - Rofi popup with imv preview
+# Enter: preview | Ctrl+Enter: apply | Escape: cancel
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
-STATE_FILE="/tmp/wallpaper-selector-state"
-FIFO="/tmp/wallpaper-selector-fifo"
-PID_FILE="/tmp/wallpaper-preview-pid"
+IMV_PID=""
 
 cleanup() {
-    [ -f "$PID_FILE" ] && kill "$(cat "$PID_FILE")" 2>/dev/null
-    hyprctl keyword windowrulev2 "unset,class:(imv-wallpaper-preview)" &>/dev/null
-    rm -f "$STATE_FILE" "$FIFO" "$PID_FILE"
+    [ -n "$IMV_PID" ] && kill "$IMV_PID" 2>/dev/null
+    hyprctl keyword windowrulev2 "unset,class:(imv)" &>/dev/null
 }
 trap cleanup EXIT
 
@@ -21,97 +19,89 @@ if [ ${#WALLPAPERS[@]} -eq 0 ]; then
     exit 1
 fi
 
-# Get current wallpaper for default selection
+# Get current wallpaper
 CURRENT=$(swww query 2>/dev/null | grep -oP 'image: \K.*' | xargs basename 2>/dev/null)
 [ -z "$CURRENT" ] && CURRENT="${WALLPAPERS[0]}"
 
 # Monitor dimensions
 eval "$(hyprctl monitors -j | jq -r '.[0] | "MON_W=\(.width) MON_H=\(.height)"')"
 
-# Calculate positions for centered layout
-ROFI_W=$((MON_W * 28 / 100))
-ROFI_H=$((MON_H * 65 / 100))
+# Layout: compact centered pair (preview left, rofi right)
+PREVIEW_W=$((MON_W * 25 / 100))
+PREVIEW_H=$((MON_H * 50 / 100))
+ROFI_W=$((MON_W * 20 / 100))
+GAP=$((MON_W * 15 / 1000))
 
-PREVIEW_W=$((MON_W * 35 / 100))
-PREVIEW_H=$((MON_H * 65 / 100))
-GAP=$((MON_W * 2 / 100))
-
-# Center point calculation
 TOTAL_W=$((PREVIEW_W + GAP + ROFI_W))
 START_X=$(((MON_W - TOTAL_W) / 2))
+CENTER_Y=$(((MON_H - PREVIEW_H) / 2))
 
-PREVIEW_X=$START_X
-PREVIEW_Y=$(((MON_H - PREVIEW_H) / 2))
+# Rofi x-offset from screen center
+ROFI_CENTER_X=$((START_X + PREVIEW_W + GAP + ROFI_W / 2))
+ROFI_OFFSET=$((ROFI_CENTER_X - MON_W / 2))
 
-ROFI_X=$((START_X + PREVIEW_W + GAP))
-ROFI_Y=$(((MON_H - ROFI_H) / 2))
+# Temporary window rules for imv preview (overrides default imv rules)
+hyprctl keyword windowrulev2 "float,class:(imv)"
+hyprctl keyword windowrulev2 "size $PREVIEW_W $PREVIEW_H,class:(imv)"
+hyprctl keyword windowrulev2 "move $START_X $CENTER_Y,class:(imv)"
 
-# Window rules
-hyprctl keyword windowrulev2 "float,class:(imv-wallpaper-preview)"
-hyprctl keyword windowrulev2 "size $PREVIEW_W $PREVIEW_H,class:(imv-wallpaper-preview)"
-hyprctl keyword windowrulev2 "move $PREVIEW_X $PREVIEW_Y,class:(imv-wallpaper-preview)"
-hyprctl keyword windowrulev2 "noanim,class:(imv-wallpaper-preview)"
+# Start imv with current wallpaper
+imv "$WALLPAPER_DIR/$CURRENT" &
+IMV_PID=$!
 
-# Create FIFO for preview updates
-rm -f "$FIFO"
-mkfifo "$FIFO"
+# Find current wallpaper's row index
+ROW=0
+for i in "${!WALLPAPERS[@]}"; do
+    [ "${WALLPAPERS[$i]}" = "$CURRENT" ] && ROW=$i && break
+done
 
-# Start preview window with imv reading from FIFO
-(
-    imv -c imv-wallpaper-preview -f -s shrink "$WALLPAPER_DIR/$CURRENT" < "$FIFO" &
-    echo $! > "$PID_FILE"
-) &
+# Rofi dmenu loop
+APPLIED=false
+while true; do
+    SELECTED=$(printf "%s\n" "${WALLPAPERS[@]}" | rofi -dmenu \
+        -i \
+        -p " Wallpaper" \
+        -no-custom \
+        -selected-row "$ROW" \
+        -mesg "Enter: preview | Ctrl+Enter: apply" \
+        -kb-accept-custom "" \
+        -kb-custom-1 "Control+Return" \
+        -theme-str "window { width: ${ROFI_W}px; location: center; x-offset: ${ROFI_OFFSET}px; }" \
+        -theme-str "listview { lines: 12; scrollbar: true; }")
+    EXIT_CODE=$?
 
-sleep 0.4
-
-# Create preview update script
-PREVIEW_SCRIPT="/tmp/wallpaper-preview.sh"
-cat > "$PREVIEW_SCRIPT" << 'EOFPREVIEW'
-#!/bin/bash
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
-FIFO="/tmp/wallpaper-selector-fifo"
-PID_FILE="/tmp/wallpaper-preview-pid"
-
-if [ -n "$1" ] && [ -f "$WALLPAPER_DIR/$1" ]; then
-    if [ -p "$FIFO" ]; then
-        PID=$(cat "$PID_FILE" 2>/dev/null)
-        if [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null; then
-            kill "$PID" 2>/dev/null
-            sleep 0.05
-        fi
-        imv -c imv-wallpaper-preview -f -s shrink "$WALLPAPER_DIR/$1" < "$FIFO" &
-        echo $! > "$PID_FILE"
-    fi
-fi
-EOFPREVIEW
-chmod +x "$PREVIEW_SCRIPT"
-
-# Rofi with preview binding and selection-changed hook
-SELECTED=$(printf "%s\n" "${WALLPAPERS[@]}" | rofi -dmenu \
-    -i \
-    -p " Wallpaper" \
-    -theme-str "window { location: center; width: ${ROFI_W}px; height: ${ROFI_H}px; x-offset: $((ROFI_X - MON_W / 2))px; y-offset: 0px; }" \
-    -theme-str "listview { lines: 15; scrollbar: true; }" \
-    -select "$CURRENT" \
-    -format 's' \
-    -kb-accept-entry 'Return,KP_Enter' \
-    -selection-changed "$PREVIEW_SCRIPT {0}" \
-    -no-custom)
+    case $EXIT_CODE in
+        0)
+            # Enter: update preview
+            [ -z "$SELECTED" ] && continue
+            for i in "${!WALLPAPERS[@]}"; do
+                [ "${WALLPAPERS[$i]}" = "$SELECTED" ] && ROW=$i && break
+            done
+            kill "$IMV_PID" 2>/dev/null
+            wait "$IMV_PID" 2>/dev/null
+            imv "$WALLPAPER_DIR/$SELECTED" &
+            IMV_PID=$!
+            ;;
+        10)
+            # Ctrl+Enter: apply wallpaper
+            APPLIED=true
+            break
+            ;;
+        *)
+            # Escape: cancel
+            break
+            ;;
+    esac
+done
 
 # Apply selected wallpaper
-if [ -n "$SELECTED" ]; then
-    WALLPAPER_PATH="$WALLPAPER_DIR/$SELECTED"
-    
-    if [ -f "$WALLPAPER_PATH" ]; then
-        swww img "$WALLPAPER_PATH" \
-            --transition-type grow \
-            --transition-pos center \
-            --transition-duration 1.5 \
-            --transition-fps 60 \
-            --transition-bezier 0.65,0,0.35,1
+if $APPLIED && [ -n "$SELECTED" ]; then
+    swww img "$WALLPAPER_DIR/$SELECTED" \
+        --transition-type grow \
+        --transition-pos center \
+        --transition-duration 1.5 \
+        --transition-fps 60 \
+        --transition-bezier 0.65,0,0.35,1
 
-        notify-send "Wallpaper Set" "$SELECTED" -i "$WALLPAPER_PATH" -t 3000
-    fi
+    notify-send "Wallpaper Set" "$SELECTED" -i "$WALLPAPER_DIR/$SELECTED" -t 3000
 fi
-
-rm -f "$PREVIEW_SCRIPT"

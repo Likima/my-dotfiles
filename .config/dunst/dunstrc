@@ -4,7 +4,7 @@
     follow = mouse
 
     # Geometry
-    width = (280, 400)
+    width = (280, 800)
     height = 180
     origin = top-right
     offset = 16x16
@@ -44,7 +44,7 @@
     ignore_newline = no
     stack_duplicates = true
     hide_duplicate_count = false
-    show_indicators = yes
+    show_indicators = no
     indicate_hidden = yes
 
     # Icons
