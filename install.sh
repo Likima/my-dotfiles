@@ -63,7 +63,7 @@ create_symlink() {
     fi
 
     backup_existing "$target"
-    ln -sf "$source" "$target"
+    ln -sfn "$source" "$target"
     print_success "Linked: $target -> $source"
 }
 
